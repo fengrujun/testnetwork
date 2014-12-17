@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="xml">
+	<t t-name="sourceFrom">
+		<div>
+			<select id="source_input">
+				<option value="1"></option>
+				<option value="0">手工</option>
+				<option value="0">自动</option>
+			</select>
+		</div>
+	</t>
+	<t t-name="runState">
+		<div>
+			<select id="run_state">
+				<option value="1"></option>
+				<option value="0">ready</option>
+				<option value="0">working</option>
+				<option value="0">repairing</option>
+				<option value="0">filed</option>
+			</select>
+		</div>
+	</t>
+	<t t-name="CIManagePage">
+		<div style="height:100%;">		
+			<div class="search_option" style="position:relative;">
+
+			</div>
+			<div class="ztree" id="ctitree"></div>
+			<div class="listview">
+				<div class="btnarea" style="position:relative;height:13%;">
+					<div class="oe_form_dropdown_selection">
+						<button class="oe_dropdown_toggle oe_dropdown_arrow oe_opened" style="margin-left:120px;margin-top:23px;width:8;">
+							更多
+						</button>
+						<ul class="oe_dropdown_menu " style="margin-left:120px;margin-top:23px;width:8;">
+							<li><a id="delete_data" class="oe_sidebar_action_a" data-index="0" data-section="other" target="_blank" original-title="">删除</a></li>
+							<li><a id="import_data" class="oe_sidebar_action_a" data-index="1" data-section="other" target="_blank" original-title="">导入</a></li>
+							<li><a id="export_data" class="oe_sidebar_action_a" data-index="2" data-section="other" target="_blank" original-title="">导出</a></li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="listarea" style="height:auto;max-height:80%;overflow-y:scroll;padding-left:3%;"></div>
+				<div class="pagearea" style="position:relative;min-height:12%"></div>
+			</div> 
+		</div>
+	</t>
+
+
+	</templates>
