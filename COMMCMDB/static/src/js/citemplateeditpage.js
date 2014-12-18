@@ -55,6 +55,7 @@ openerp.COMMCMDB.CITemplateEditPage = function(instance) {
 	                        obj.defaultvalue = typeof(obj.defaultvalue) != 'boolean' ? obj.defaultvalue : null;
 	                        obj.is_clear = obj.is_clear ? '是':'否';
 	                        var newLine = self.dataTable.row.add( [
+	                                             null,
 	                                             obj.attrname,
 	                                             obj.englishname,
 	                                             obj.datatype,
@@ -84,8 +85,11 @@ openerp.COMMCMDB.CITemplateEditPage = function(instance) {
     		this.dataTable = this.$el.find('#attributes').DataTable( {
     	        "data": dataSet,
     	        "fnInitComplete": function () {
+    	        	self.$el.find('#check_all').parent().removeClass('sorting_asc');
     	        	self.$el.find("div.dataTables_length").css('margin-bottom','10px');
     	        	self.$el.find("div.dataTables_length").prepend('<button class="btn add pull-left" style="margin-right:5px;" type="button">添加</button>');
+    	        	self.$el.find("div.dataTables_length").prepend('<button class="btn edit pull-left" style="margin-right:5px;" type="button">编辑</button>');
+    	        	self.$el.find("div.dataTables_length").prepend('<button class="btn remove pull-left" style="margin-right:5px;" type="button">删除</button>');
     	        	self.$el.find("button.add").click(function(){
     	        		self.do_action({
     	        			tag:'custom.selectattr',
@@ -97,31 +101,63 @@ openerp.COMMCMDB.CITemplateEditPage = function(instance) {
 	            			on_close:_on_close
 	                      });
     	            });
+    	        	
+    	        	self.$el.find("button.edit").click(function(){
+    	        		
+    	            });
+    	        	
+    	        	self.$el.find("button.remove").click(function(){
+    	        		//self.$el.find('')
+    	            });
     	        },
+//    	        "columnDefs": [
+//    	                       { "orderable": false, "targets": 0 }
+//    	                     ],
     	        "columns": [
+    	            { "sTitle": "<input type='checkbox' id = 'check_all' name = 'check_all'/>",
+    	               "sClass": "center",
+    	               "sWidth": "10%",
+    	               "bSortable": false,
+    	               "data": null,
+    	               "defaultContent":"<input type='checkbox' class='attr_check'/>"
+    	               },
     	            { "title": "属性名" },
     	            { "title": "英文名" },
     	            { "title": "数据类型" },
     	            { "title": "分组", "class": "center" },
     	            { "title": "默认值",  },
     	            { "title": "是否清空",  },
-    	            {
-    	            	"title":"操作",
-    	                data: null,
-    	                className: "center",
-    	                defaultContent: '<a href="javascript:void(0)" class="editor_edit">Edit</a> / <a href="javascript:void(0)" class="editor_remove">Delete</a>'
-    	            }
+//    	            {
+//    	            	"title":"操作",
+//    	                data: null,
+//    	                className: "center",
+//    	                defaultContent: '<a href="javascript:void(0)" class="editor_edit">Edit</a> / <a href="javascript:void(0)" class="editor_remove">Delete</a>'
+//    	            }
     	        ]
     	    } );
     		
-    		this.$el.find('#attributes').on('click', 'a.editor_remove', function (e) {
-    			self.dataTable.row($(this).parent().parent()).remove().draw();
+    		this.$el.find('#attributes').on('change', '#check_all', function (e) {
+    			if($(this)[0].checked){
+    				self.$el.find('.attr_check').each(function(){
+    					$(this)[0].checked = true;
+    				});
+    			}
+    			else{
+    				self.$el.find('.attr_check').each(function(){
+    					$(this)[0].checked = false;
+    				});
+    			}
+//    			self.dataTable.row($(this).parent().parent()).remove().draw();
 //    	        e.preventDefault();
 //    	 
 //    	        editor
 //    	            .message( 'Are you sure you wish to remove this record?' )
 //    	            .buttons( { "label": "Delete", "fn": function () { editor.submit() } } )
 //    	            .remove( $(this).closest('tr') );
+    	    });
+    		
+    		this.$el.find('#attributes').on('change', '.attr_check', function (e) {
+    			if(!$(this)[0].checked)self.$el.find('#check_all')[0].checked = false;
     	    });
     	},
     });
